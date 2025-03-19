@@ -18,11 +18,14 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: List contents of .next directory
+        run: ls -la ./.next  # Vérifie le contenu du répertoire de sortie
+
       - name: Create .nojekyll file
-        run: echo "" > ./dist/.nojekyll  # Crée un fichier vide .nojekyll dans le répertoire de publication
+        run: echo "" > ./.next/.nojekyll  # Crée un fichier vide .nojekyll dans le répertoire de publication
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist  # ou "out" selon votre configuration 
+          publish_dir: ./.next  # Utilise le répertoire .next pour le déploiement
